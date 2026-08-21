@@ -1,0 +1,381 @@
+/* ==========================================================================
+   VibeGram Layout & Navigation Styles
+   ========================================================================== */
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  position: relative;
+}
+
+/* ==========================================================================
+   Desktop Sidebar
+   ========================================================================== */
+.desktop-sidebar,
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  border-right: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 18px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-logo-icon {
+  width: 34px;
+  height: 34px;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: var(--shadow-glow);
+  flex-shrink: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.nav-link-item,
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast, 0.15s ease);
+}
+
+.nav-link-item:hover,
+.nav-item:hover {
+  background-color: var(--bg-surface-hover, #181d30);
+  color: var(--text-primary);
+  transform: translateX(2px);
+}
+
+.nav-link-item.active,
+.nav-item.active {
+  background: var(--bg-surface-hover, #181d30);
+  color: var(--primary-from);
+  font-weight: 700;
+}
+
+.nav-link-item.active svg,
+.nav-item.active svg {
+  stroke: var(--primary-from);
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 16px;
+}
+
+.user-snippet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+  min-width: 0;
+}
+
+.user-snippet:hover {
+  background-color: var(--bg-surface-hover, #181d30);
+}
+
+.user-snippet-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Main Wrapper & Content Areas
+   ========================================================================== */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 32px 20px 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-feed {
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-full {
+  width: 100%;
+  max-width: 935px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Post Card Styles (Instagram-Quality Bounded Frame)
+   ========================================================================== */
+.post-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 470px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.post-author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.post-author-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.post-time {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.post-image-container {
+  position: relative;
+  width: 100%;
+  background-color: #060810;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 585px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px 16px;
+}
+
+.post-action-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.post-likes-count {
+  padding: 0 16px 6px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.post-caption-section {
+  padding: 0 16px 8px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.post-caption-author {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-right: 8px;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Mobile Top & Bottom Navigation (Hidden on Desktop)
+   ========================================================================== */
+.mobile-top-nav,
+.topnav {
+  display: none;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 16px;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  width: 100%;
+}
+
+.mobile-bottom-nav,
+.bottomnav {
+  display: none;
+  height: var(--bottomnav-height, 60px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding: 0 8px;
+}
+
+.mobile-nav-icon,
+.bottomnav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.mobile-nav-icon.active,
+.bottomnav-item.active {
+  color: var(--primary-from);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .desktop-sidebar,
+  .sidebar {
+    width: 76px;
+    padding: 24px 8px;
+    align-items: center;
+  }
+
+  .sidebar-logo span,
+  .nav-link-item span,
+  .user-snippet-details,
+  .sidebar-footer button span {
+    display: none;
+  }
+
+  .nav-link-item,
+  .nav-item {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .sidebar-logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .sidebar-footer {
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-sidebar,
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-top-nav,
+  .topnav {
+    display: flex;
+  }
+
+  .mobile-bottom-nav,
+  .bottomnav {
+    display: flex;
+  }
+
+  .main-content {
+    padding: 16px 12px 76px 12px;
+  }
+
+  .content-feed {
+    max-width: 100%;
+  }
+
+  .post-card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 16px;
+  }
+}

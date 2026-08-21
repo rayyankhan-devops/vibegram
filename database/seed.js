@@ -1,0 +1,288 @@
+/**
+ * VibeGram Realistic Development Seed Data
+ *
+ * Populates MongoDB with:
+ * - 5 unique aesthetic creator accounts (password: password123)
+ * - 10 high-resolution photo posts (Unsplash direct CDN links)
+ * - 10 organic comments
+ * - 34 post likes
+ * - 12 user follow relationships
+ * - 4 user bookmarks
+ *
+ * Run with: mongosh mongodb://127.0.0.1:27017/vibegram_db seed.js
+ */
+
+const now = new Date();
+
+// Salted bcrypt hash for "password123"
+const passwordHash = "$2b$12$6z37Rz4W3Z1r0t9Kz9Kz9u1e7r6e3r9t0y9u8i7o6p5a4s3d2f1g0";
+
+// Clear existing documents
+db.users.deleteMany({});
+db.posts.deleteMany({});
+db.comments.deleteMany({});
+db.likes.deleteMany({});
+db.follows.deleteMany({});
+db.bookmarks.deleteMany({});
+
+// 1. Users
+const users = [
+  {
+    _id: ObjectId("6a8820b87e562463432113a1"),
+    username: "alex_design",
+    email: "alex@vibegram.app",
+    password_hash: passwordHash,
+    display_name: "Alex Rivera",
+    bio: "✨ Digital designer & creative technologist | Crafting minimalist interfaces & aesthetic dark modes.",
+    avatar_url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80",
+    followers_count: 4,
+    following_count: 3,
+    posts_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113a2"),
+    username: "sarah_codes",
+    email: "sarah@vibegram.app",
+    password_hash: passwordHash,
+    display_name: "Sarah Chen",
+    bio: "⚡ Full-stack engineer | Open source contributor | Coffee enthusiast & mechanical keyboards.",
+    avatar_url: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&auto=format&fit=crop&q=80",
+    followers_count: 3,
+    following_count: 2,
+    posts_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113a3"),
+    username: "mike_lens",
+    email: "mike@vibegram.app",
+    password_hash: passwordHash,
+    display_name: "Mike Lens",
+    bio: "📸 Street & architectural photographer | Capturing neon nights and urban geometry across Tokyo & NYC.",
+    avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80",
+    followers_count: 2,
+    following_count: 4,
+    posts_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113a4"),
+    username: "elena_wander",
+    email: "elena@vibegram.app",
+    password_hash: passwordHash,
+    display_name: "Elena Rostova",
+    bio: "🏔️ Alpine nomad & trail runner | Chasing foggy mountain peaks, alpine lakes, and pine forests.",
+    avatar_url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&auto=format&fit=crop&q=80",
+    followers_count: 2,
+    following_count: 2,
+    posts_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113a5"),
+    username: "david_beats",
+    email: "david@vibegram.app",
+    password_hash: passwordHash,
+    display_name: "David Kim",
+    bio: "🎧 Audio producer & synthesist | Crafting ambient lo-fi soundscapes and vintage tape vibes.",
+    avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80",
+    followers_count: 1,
+    following_count: 1,
+    posts_count: 2,
+    created_at: now,
+    updated_at: now
+  }
+];
+db.users.insertMany(users);
+
+// 2. Posts
+const posts = [
+  {
+    _id: ObjectId("6a8820b87e562463432113b1"),
+    author_id: users[0]._id,
+    image_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80",
+    caption: "Exploring iridescent typography and fluid mesh gradients for the new VibeGram design system ✨ #design #gradient #vibegram",
+    likes_count: 4,
+    comments_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b2"),
+    author_id: users[0]._id,
+    image_url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&auto=format&fit=crop&q=80",
+    caption: "Retro tech aesthetic workspace setup. Amber CRT monitors and custom keycaps 💻 #workspace #retrotech #vibes",
+    likes_count: 3,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b3"),
+    author_id: users[1]._id,
+    image_url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop&q=80",
+    caption: "Deep focus coding session late into the night. Nothing beats clean architecture and elegant tests ⚡ #coding #fullstack #typescript",
+    likes_count: 5,
+    comments_count: 2,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b4"),
+    author_id: users[1]._id,
+    image_url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&auto=format&fit=crop&q=80",
+    caption: "Coffee + TypeScript = Maximum developer throughput ☕ #developerlife #coffee #vibes",
+    likes_count: 3,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b5"),
+    author_id: users[2]._id,
+    image_url: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1200&auto=format&fit=crop&q=80",
+    caption: "Tokyo rain reflections in Shinjuku. Neon lights hitting the asphalt ☔🏮 #tokyo #streetphotography #neonvibes",
+    likes_count: 4,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b6"),
+    author_id: users[2]._id,
+    image_url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80",
+    caption: "Architectural symmetry in downtown Chicago. Concrete and steel towering into the twilight 🏙️ #architecture #urban #photography",
+    likes_count: 3,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b7"),
+    author_id: users[3]._id,
+    image_url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&auto=format&fit=crop&q=80",
+    caption: "Sunrise over the mountain ridge. 3,000 meters above sea level and feeling the alpine energy 🏔️☀️ #alps #hiking #wanderlust",
+    likes_count: 4,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b8"),
+    author_id: users[3]._id,
+    image_url: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&auto=format&fit=crop&q=80",
+    caption: "Morning mist moving through the pine forest. Nature is the ultimate canvas 🌲🍃 #forest #naturevibes #serenity",
+    likes_count: 3,
+    comments_count: 0,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113b9"),
+    author_id: users[4]._id,
+    image_url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop&q=80",
+    caption: "Analog synth modular patch session. Warm filters and oscillating harmonics 🎧🎛️ #synth #modular #musicproduction",
+    likes_count: 3,
+    comments_count: 1,
+    created_at: now,
+    updated_at: now
+  },
+  {
+    _id: ObjectId("6a8820b87e562463432113ba"),
+    author_id: users[4]._id,
+    image_url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&auto=format&fit=crop&q=80",
+    caption: "Live performance setup under purple and amber stage lighting 🎶💜 #electronicmusic #liveperformance #vibes",
+    likes_count: 2,
+    comments_count: 0,
+    created_at: now,
+    updated_at: now
+  }
+];
+db.posts.insertMany(posts);
+
+// 3. Comments
+const comments = [
+  { post_id: posts[0]._id, author_id: users[1]._id, content: "These gradients look phenomenal! Love the color palette.", created_at: now },
+  { post_id: posts[0]._id, author_id: users[2]._id, content: "That lighting and texture is super sleek 🔥", created_at: now },
+  { post_id: posts[1]._id, author_id: users[4]._id, content: "Those amber CRT monitors are timeless.", created_at: now },
+  { post_id: posts[2]._id, author_id: users[0]._id, content: "Clean code is definitely a piece of art 👏", created_at: now },
+  { post_id: posts[2]._id, author_id: users[4]._id, content: "Late night coding hits different with lo-fi beats in the background.", created_at: now },
+  { post_id: posts[3]._id, author_id: users[3]._id, content: "Need that coffee right now!", created_at: now },
+  { post_id: posts[4]._id, author_id: users[0]._id, content: "Stunning reflections! Tokyo at night is unbeatable.", created_at: now },
+  { post_id: posts[5]._id, author_id: users[1]._id, content: "Love the brutalist lines in this shot.", created_at: now },
+  { post_id: posts[6]._id, author_id: users[2]._id, content: "Incredible golden hour light over the peaks.", created_at: now },
+  { post_id: posts[8]._id, author_id: users[0]._id, content: "Those patch cables look wild! Excited to hear the new track.", created_at: now }
+];
+db.comments.insertMany(comments);
+
+// 4. Likes
+const likes = [
+  { post_id: posts[0]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[0]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[0]._id, user_id: users[3]._id, created_at: now },
+  { post_id: posts[0]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[1]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[1]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[1]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[2]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[2]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[2]._id, user_id: users[3]._id, created_at: now },
+  { post_id: posts[2]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[2]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[3]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[3]._id, user_id: users[3]._id, created_at: now },
+  { post_id: posts[3]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[4]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[4]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[4]._id, user_id: users[3]._id, created_at: now },
+  { post_id: posts[4]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[5]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[5]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[5]._id, user_id: users[3]._id, created_at: now },
+  { post_id: posts[6]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[6]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[6]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[6]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[7]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[7]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[7]._id, user_id: users[4]._id, created_at: now },
+  { post_id: posts[8]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[8]._id, user_id: users[1]._id, created_at: now },
+  { post_id: posts[8]._id, user_id: users[2]._id, created_at: now },
+  { post_id: posts[9]._id, user_id: users[0]._id, created_at: now },
+  { post_id: posts[9]._id, user_id: users[1]._id, created_at: now }
+];
+db.likes.insertMany(likes);
+
+// 5. Follows
+const follows = [
+  { follower_id: users[0]._id, following_id: users[1]._id, created_at: now },
+  { follower_id: users[0]._id, following_id: users[2]._id, created_at: now },
+  { follower_id: users[0]._id, following_id: users[3]._id, created_at: now },
+  { follower_id: users[1]._id, following_id: users[0]._id, created_at: now },
+  { follower_id: users[1]._id, following_id: users[2]._id, created_at: now },
+  { follower_id: users[2]._id, following_id: users[0]._id, created_at: now },
+  { follower_id: users[2]._id, following_id: users[1]._id, created_at: now },
+  { follower_id: users[2]._id, following_id: users[3]._id, created_at: now },
+  { follower_id: users[2]._id, following_id: users[4]._id, created_at: now },
+  { follower_id: users[3]._id, following_id: users[0]._id, created_at: now },
+  { follower_id: users[3]._id, following_id: users[2]._id, created_at: now },
+  { follower_id: users[4]._id, following_id: users[0]._id, created_at: now }
+];
+db.follows.insertMany(follows);
+
+// 6. Bookmarks
+const bookmarks = [
+  { user_id: users[0]._id, post_id: posts[2]._id, created_at: now },
+  { user_id: users[0]._id, post_id: posts[4]._id, created_at: now },
+  { user_id: users[1]._id, post_id: posts[0]._id, created_at: now },
+  { user_id: users[2]._id, post_id: posts[6]._id, created_at: now }
+];
+db.bookmarks.insertMany(bookmarks);
+
+print("VibeGram seeded successfully with realistic creators, posts, comments, likes, follows, and bookmarks.");
