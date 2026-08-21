@@ -1,0 +1,9 @@
+name: VibeGram-CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+    linting:
+        uses: ./.github/workflows/lint.yml
