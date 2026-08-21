@@ -9,13 +9,17 @@
  * - 12 user follow relationships
  * - 4 user bookmarks
  *
- * Run with: mongosh mongodb://127.0.0.1:27017/vibegram_db seed.js
+ * Compatible with Docker entrypoint initialization (/docker-entrypoint-initdb.d/seed.js)
+ * and manual execution (mongosh mongodb://127.0.0.1:27017/vibegram_db seed.js).
  */
+
+// Explicitly switch to target database
+db = db.getSiblingDB("vibegram_db");
 
 const now = new Date();
 
-// Salted bcrypt hash for "password123"
-const passwordHash = "$2b$12$6z37Rz4W3Z1r0t9Kz9Kz9u1e7r6e3r9t0y9u8i7o6p5a4s3d2f1g0";
+// Valid 12-round bcrypt hash for "password123"
+const passwordHash = "$2b$12$XOmzKSSx8tp8Q8d3amc.Be0HTqRPMc5nGbxloaPnr6eKb8RjNarRu";
 
 // Clear existing documents
 db.users.deleteMany({});
