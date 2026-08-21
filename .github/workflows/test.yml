@@ -2,9 +2,16 @@ name: Automated Tests
 
 on:
   workflow_call:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
 
-  
 jobs:
+  # ============================================================================
+  # 🐍 1. Python Backend Tests (Pytest)
+  # ============================================================================
   test-backend:
     name: 🐍 Backend Tests (Pytest)
     runs-on: ubuntu-latest
@@ -35,8 +42,12 @@ jobs:
           MONGODB_DATABASE: vibegram_test_db
         run: pytest -v
 
+
+  # ============================================================================
+  # ⚡ 2. Node.js Frontend Tests (Vitest + Build Check)
+  # ============================================================================
   test-frontend:
-    name: ⚡ Frontend Tests (Vitest + Vite)
+    name: ⚡ Frontend Tests (Vitest + Build)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -57,4 +68,7 @@ jobs:
         run: npm ci
 
       - name: 🧪 Run Vitest Component & Unit Tests
-        run: npm run test && npm run test:watch
+        run: npm run test
+
+      - name: 🏗️ Verify Production Bundle Build
+        run: npm run build

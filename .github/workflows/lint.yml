@@ -2,10 +2,18 @@ name: Lint & Code Quality
 
 on:
   workflow_call:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
 
 jobs:
+  # ============================================================================
+  # 🐍 1. Python Backend Linting & Formatting (Ruff)
+  # ============================================================================
   lint-backend:
-    name: 🐍 Python Lint & Format (Ruff)
+    name: 🐍 Backend Lint & Format (Ruff)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,8 +42,11 @@ jobs:
         run: ruff format --check .
 
 
+  # ============================================================================
+  # ⚡ 2. Node.js Frontend Linting & Type Check (ESLint + Prettier + TSC)
+  # ============================================================================
   lint-frontend:
-    name: ⚡ Node.js Lint & Type Check (ESLint + Prettier + TSC)
+    name: ⚡ Frontend Lint & Type Check (ESLint + Prettier + TSC)
     runs-on: ubuntu-latest
     defaults:
       run:
