@@ -1,0 +1,30 @@
+name: Linting
+
+on:
+    workflow_call:
+
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            
+            - name: Set up node
+              uses: actions/setup-node@v6.5.0               
+              working-directory: ./frontend
+              with:
+                node-version: 20
+                cache: "npm"
+                dependency-cache: "package-lock.json"
+
+            - name: Install dependencies
+              run: npm install
+              working-directory: ./frontend
+            
+            - name: Run linting
+              run: npm run lint
+              working-directory: ./frontend
+            
+            
