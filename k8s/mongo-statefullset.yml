@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+
+metadata:
+  name: vibegram-mongo-statefulset
+  namespace: vibegram
+  labels:
+    app: vibegram-mongo
+
+spec:
+  serviceName: vibegram-mongo-service
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: vibegram-mongo
+
+  template:
+    metadata:
+      labels:
+        app: vibegram-mongo
+
+    spec:
+      containers:
+        - name: vibegram-mongo
+          image: mongo:8.0
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: vibegram-mongo-configmap
+                  key: MONGO_INITDB_DATABASE
+
+          ports:
+            - containerPort: 27017
+              name: mongo
+
+          volumeMounts:
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
+
+            - name: data
+              mountPath: /data/db
+
+      volumes:
+        - name: init-script
+          configMap:
+            name: vibegram-mongo-init
+
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+
+      spec:
+        accessModes:
+          - ReadWriteOnce
+
+        storageClassName: manual
+
+        resources:
+          requests:
+            storage: 500Mi

@@ -26,13 +26,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/opt/venv/bin:$PATH"
 
-RUN groupadd -r vibegram && useradd -r -g vibegram -d /app -s /sbin/nologin vibegram
+RUN groupadd -r appgroup && useradd -r -g appgroup -d /app -s /sbin/nologin appuser
 
 COPY --from=builder /opt/venv /opt/venv
 
-COPY --chown=vibegram:vibegram . .
+COPY --chown=appuser:appgroup . .
 
-USER vibegram
+USER appuser
 
 EXPOSE 8000
 
