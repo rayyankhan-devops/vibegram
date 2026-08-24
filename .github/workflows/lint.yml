@@ -1,4 +1,4 @@
-name: Lint & Code Quality
+name: Lint and Code Quality
 
 on:
   workflow_call:
@@ -9,68 +9,61 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ============================================================================
-  # 🐍 1. Python Backend Linting & Formatting (Ruff)
-  # ============================================================================
   lint-backend:
-    name: 🐍 Backend Lint & Format (Ruff)
+    name: Backend Lint and Format (Ruff)
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
 
     steps:
-      - name: 📥 Check out repository
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: 🐍 Set up Python 3.12
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
           cache-dependency-path: backend/requirements.txt
 
-      - name: 📦 Install Python Dependencies
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🔍 Run Ruff Linter
+      - name: Run Ruff Linter
         run: ruff check .
 
-      - name: 🎨 Run Ruff Formatting Check
+      - name: Run Ruff Formatting Check
         run: ruff format --check .
 
-
-  # ============================================================================
-  # ⚡ 2. Node.js Frontend Linting & Type Check (ESLint + Prettier + TSC)
-  # ============================================================================
   lint-frontend:
-    name: ⚡ Frontend Lint & Type Check (ESLint + Prettier + TSC)
+    name: Frontend Lint and Type Check (ESLint, Prettier, TSC)
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
 
     steps:
-      - name: 📥 Check out repository
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: 🟢 Set up Node.js 20
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
-      - name: 📦 Install Frontend Dependencies
+      - name: Install Frontend Dependencies
         run: npm ci
 
-      - name: 🔍 Run ESLint
+      - name: Run ESLint
         run: npm run lint
 
-      - name: 🎨 Run Prettier Formatting Check
+      - name: Run Prettier Formatting Check
         run: npm run format:check
 
-      - name: 🛡️ Run TypeScript Compiler (Type Check)
+      - name: Run TypeScript Compiler
         run: npx tsc --noEmit
