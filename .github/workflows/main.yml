@@ -5,6 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 
 permissions:
   actions: read
@@ -16,19 +17,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  secret-scan:
+    name: 1. Secret Scan Stage
+    uses: ./.github/workflows/secret-scan.yml
+
   linting:
-    name: Linting Stage
+    name: 2. Linting Stage
+    needs: secret-scan
     uses: ./.github/workflows/lint.yml
 
   testing:
-    name: Testing Stage
+    name: 3. Testing Stage
     needs: linting
     uses: ./.github/workflows/test.yml
 
-  secret-scan:
-    name: Secret Scan Stage
-    uses: ./.github/workflows/secret-scan.yml
-
   code-quality:
-    name: Code Quality Stage
+    name: 4. Code Quality Stage
+    needs: testing
     uses: ./.github/workflows/code-quality.yml
